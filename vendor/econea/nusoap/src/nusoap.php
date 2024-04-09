@@ -6576,7 +6576,12 @@ class wsdl extends nusoap_base
             $attrs = $eAttrs;
         }
 
-        $restrictionBase = strpos($restrictionBase, ':') ? $this->expandQname($restrictionBase) : $restrictionBase;
+        // $restrictionBase = strpos($restrictionBase, ':') ? $this->expandQname($restrictionBase) : $restrictionBase;
+        if (is_string($restrictionBase)) {
+            $restrictionBase = strpos($restrictionBase, ':') !== false ? $this->expandQname($restrictionBase) : $restrictionBase;
+        } else {
+            // Manejo del caso en el que $restrictionBase no es una cadena de texto
+        }        
         $arrayType = strpos($arrayType, ':') ? $this->expandQname($arrayType) : $arrayType;
 
         $typens = isset($this->namespaces['types']) ? $this->namespaces['types'] : $this->namespaces['tns'];
